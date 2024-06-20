@@ -21,7 +21,7 @@ const Input = React.forwardRef(function Input(
   return (
     <div className={` relative w-full mb-2 ${divClassName}`}>
       <label
-        className={`  md:pl-1  ${labelClassName}`}
+        className={`  md:pl-1  text-sm font-[600] ${labelClassName}`}
         htmlFor={$id ? $id : id}
       >
         {label}

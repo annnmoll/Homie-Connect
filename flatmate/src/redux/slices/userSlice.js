@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  user : null ,
-  token : null ,
+  user : localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user"))  :null ,
+  token : document.cookie ? document.cookie.split("=")[1] : null,
   loading : false 
 }
 
 export const userSlice = createSlice({
-  name: 'suer',
+  name: 'user',
   initialState,
   reducers: {
     setUser : (state , action) =>{} , 
