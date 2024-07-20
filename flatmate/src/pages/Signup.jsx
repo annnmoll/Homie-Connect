@@ -2,14 +2,12 @@ import React from 'react'
 import Input from '../components/common/Input'
 import Button from '../components/common/Button'
 import Logo from '../components/common/Logo'
-
 import { Link, useNavigate } from 'react-router-dom'
 import Lottie from 'react-lottie'
 import animationData from "../lotties/Singup.json"
 import { useForm } from 'react-hook-form'
-import { signup } from '../services/authService'
+import { sendotp } from '../services/authService'
 import {useDispatch} from "react-redux"
-import { setEmail } from '../redux/slices/authSlice'
 function Signup() {
 
     const {register , handleSubmit ,formState  } = useForm()
@@ -27,14 +25,13 @@ function Signup() {
       };
 
       const submitHandler = async(data) =>{
-        dispatch(setEmail(data?.email))
-         await signup(data?.email , navigate);
+          dispatch(sendotp(data.email , navigate));
         
       }
 
   return (
-    <div className='w-full min-h-screen grid  px-5  md:grid-cols-2  '>
-    <div className='py-10  px-5    md:px-10   flex flex-col justify-start mt-2 md:mb-20  gap-5'>
+    <div className='w-full  grid  px-5  md:grid-cols-2  '>
+    <div className=' py-10  px-5    md:px-10   flex flex-col justify-start mt-2 md:mb-20  gap-5'>
         <Logo />
         <form onSubmit={handleSubmit(submitHandler)}>
           <div className='text-2xl font-bold'>
@@ -50,11 +47,11 @@ function Signup() {
 
       </div>
 
-      <div className=' h-auto md:px-10 py-10  '>
+      <div className=' flex items-center  md:px-10 py-10  '>
       <Lottie 
 	    options={defaultOptions}
-        height={"80%" }
-        width={"90%"}
+      style={{ objectFit : "contain" , height:"auto", maxWidth:"500" }}
+
       />
       </div>
     

@@ -21,7 +21,7 @@ const Input = React.forwardRef(function Input(
   return (
     <div className={` relative w-full mb-2 ${divClassName}`}>
       <label
-        className={`  md:pl-1  text-sm font-[600] ${labelClassName}`}
+        className={`  md:pl-1  text-sm font-[600] ${labelClassName}  `}
         htmlFor={$id ? $id : id}
       >
         {label}
@@ -34,9 +34,9 @@ const Input = React.forwardRef(function Input(
           type={type}
         //   readOnly= {readOnly}
           // accept={type === "file" ?  "image/jpeg, image/jpg, image/png" : null}
-          className={` bg-[--input-background] border border-logoColor p-[8px] ${
+          className={` bg-gray-200 border border-logoColor py-3 p-[8px] px-4 ${
             icon ? "pl-[40px]" : ""
-          } rounded-[8px]  w-full hover:border-[#838894] outline-none ${className} 
+          } rounded-[8px]  w-full hover:border-green-600 outline-none ${className} 
           ${type === "date" ?  "py-[6px]" : ""}    `
           
           }

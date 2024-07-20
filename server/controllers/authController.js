@@ -2,6 +2,8 @@ const User = require("../models/userSchema");
 const Otp = require("../models/otpSchema");
 const jwt = require("jsonwebtoken");
 const bcrypt  = require("bcrypt") ; 
+const crypto = require("crypto")
+const {uploadImage} = require("../utils/imageUploader")
 
 const { generateOtp } = require("../utils/otpGenerator");
 const { sendEmail } = require("../utils/mailSender");
@@ -23,7 +25,7 @@ exports.signup = async (req, res) => {
     const options = {
       email: email,
       subject: "OTP for verification",
-      message: `<h1>${otp}</h1>`,
+      message: `<h1>${newOtp.otp}</h1>`,
     };
     sendEmail(options);
     res.status(200).json({
@@ -101,7 +103,7 @@ exports.createUser = async (req, res) => {
     });
 
     await newUser.save();
-
+    console.log(newUser._id) ; 
     const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
@@ -155,3 +157,101 @@ exports.loginUser = async (req, res) => {
       res.status(500).json({ message: 'Server error' });
     }
   };
+
+
+  exports.forgotPassword = async (req, res) => {
+    const { email } = req.body;
+  
+    // Find user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ success:false, message:"No user found with that email" ,  error: 'No user found with that email.' });
+    }
+  
+    // Create reset token
+    const resetToken = user.createPasswordResetToken();
+    await user.save({ validateBeforeSave: false });
+  
+    // Create reset URL
+    const resetURL = `${req.protocol}://${req.get('host')}/resetPassword/${resetToken}`;
+  
+    // Send email
+    try {
+      const options = {
+        email: email,
+        subject: "OTP for verification",
+        message: `<h1>${resetURL}</h1>`,
+      };
+      sendEmail(options);
+      res.status(200).json({ success: true, message: 'Password reset email sent successfully.' });
+    } catch (error) {
+      user.passwordResetToken = undefined;
+      user.passwordResetExpires = undefined;
+      await user.save({ validateBeforeSave: false });
+  
+      res.status(500).json({success: false,  message: 'There was an error sending the email. Try again later.' });
+    }
+  };
+
+  exports.resetPassword = async (req, res) => {
+    const { token } = req.params;
+    const { password } = req.body;
+  
+    // Hash the token again as it was hashed in the database
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+  
+    // Find the user by the hashed token and ensure the token is still valid
+    const user = await User.findOne({
+      passwordResetToken: hashedToken,
+      passwordResetExpires: { $gt: Date.now() },
+    });
+  
+    if (!user) {
+      return res.status(400).json({ success: false ,message : "Token is invalid or has expired" ,  error: 'Token is invalid or has expired.' });
+    }
+  
+    // Hash the new password before saving
+    // const salt = await bcrypt.genSalt(10);
+    user.password = password;
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+  
+    await user.save();
+  
+    res.status(200).json({ success: true ,  message: 'Password has been reset successfully.' });
+  };
+  exports.updateProfile = async (req, res) => {
+    const { name, number, gender} = req.body;
+    // console.log(req.files)
+    
+    
+    try {
+      const response = req.files?.profilePicture?.tempFilePath
+    ? await uploadImage(req.files.profilePicture.tempFilePath, "Flatmate")
+    : { secure_url: "" };
+      const user = await User.findOneAndUpdate(
+        { _id: req.user.userId },
+        { name, number, gender, profilePicture : response.secure_url  },
+        { new: true, runValidators: true } // options to return the updated document and run schema validators
+      );
+  
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: "User not found"
+        });
+      }
+  
+      res.status(200).json({
+        success: true,
+        message: "Profile updated successfully",
+        user
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        success: false,
+        message: 'There was an error updating the profile'
+      });
+    }
+  }; 

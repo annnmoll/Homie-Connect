@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setDetails } from "../redux/slices/authSlice";
 import { toast } from "react-toastify";
 
-
 const options = [
   { value: "delhi", label: "Delhi" },
   { value: "noida", label: "Noida" },
@@ -32,45 +31,43 @@ const roles = [
 const genders = ["Male", "Female"];
 
 function Details() {
-  const {email} = useSelector(state =>state.auth)
+  const { email } = useSelector((state) => state.auth);
   const [selectedCity, setSelectedCity] = useState(null);
   const [role, setRole] = useState(null);
   const [gender, setGender] = useState("Male");
   const navigate = useNavigate();
-  const dispatch = useDispatch() ; 
+  const dispatch = useDispatch();
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
 
-  useEffect(()=>{
-      if(!email ){
-        toast.error("Session Timeout");
-        navigate("/signup")
-      }
-  } , [])
+  useEffect(() => {
+    if (!email) {
+      toast.error("Session Timeout");
+      navigate("/signup");
+    }
+  }, [email]);
 
   const submitHandler = (data) => {
-
-    if(data.password !== data.confirmPassword){
-      toast.warn("Confirm Password again")
+    if (data.password !== data.confirmPassword) {
+      toast.warn("Confirm Password again");
+    } else {
+      const formObj = {
+        role: role.value,
+        gender,
+        city: selectedCity?.value,
+        ...data,
+      };
+      // console.log(formObj);
+      dispatch(setDetails(formObj));
+      navigate("/preferences");
     }
-    else{
-    const formObj = {
-      role: role.value,
-      gender,
-      city: selectedCity?.value,
-      ...data,
-    };
-    console.log(formObj);
-    dispatch(setDetails(formObj))
-
-    navigate("/preferences");}
   };
   return (
-    <div className="w-full min-h-screen flex justify-center items-center px-3">
-      <div className="w-full max-w-4xl  mx-auto flex justify-center items-center flex-col gap-5 py-5">
+    <div className="w-full min-h-screen flex justify-center items-center px-5 md:px-10 py-5">
+      <div className="w-full max-w-4xl  mx-auto flex justify-center items-center flex-col gap-5  py-5">
         <Logo />
 
-        <div className="border  rounded-md  w-full px-4 py-10  ">
+        <div className="border  rounded-xl  w-full  px-5 md:px-10 py-10 pb-16  ">
           <h1 className="text-3xl font-[600] text-center mb-8 ">
             You are Almost Done!!
             <br />
@@ -83,14 +80,11 @@ function Details() {
             <Input
               label="Your Name"
               errors={errors?.name}
-              placeHolder="FirstName LastName"
+              placeHolder="John Doe"
               divClassName="mb-[2px]"
               {...register("name", { required: "Name is required" })}
             />
 
-            <div className="text-xs ml-3 mb-5  ">
-              Note: Users with real names gets <b>90% more engagement</b>
-            </div>
             <div className="text-sm mt-5 ml-1 mb-1 font-[600]">
               Please select what describes you best
             </div>
@@ -101,6 +95,7 @@ function Details() {
               options={roles}
               placeholder="Select what describes you best"
               className="mb-5"
+              required
               //   {...register("city" , {required : "City is required "})}
             />
 
@@ -108,6 +103,7 @@ function Details() {
               errors={errors?.age}
               label="Your Age"
               placeHolder="18"
+              type="number"
               className=""
               {...register("age", { required: "Age is required" })}
             />
@@ -116,7 +112,7 @@ function Details() {
               tabs={genders}
               currentTab={gender}
               setCurrentTab={setGender}
-              className="w-full"
+              className="w-full h-[40px]"
             />
 
             <div className="text-sm mt-5 ml-1 mb-1 font-[600]">
@@ -129,6 +125,7 @@ function Details() {
               options={options}
               placeholder="Select City"
               className="mb-5"
+              required
               //   {...register("city" , {required : "City is required "})}
             />
 
@@ -139,8 +136,14 @@ function Details() {
               placeHolder="********"
               {...register("password", {
                 required: "Password is required is required",
-                minLength: {value: 6  ,message : "Password must be at least 8 characters long "} ,
-                maxLength: {value :15 , message : "Password can be upto 15 character long"},
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 8 characters long ",
+                },
+                maxLength: {
+                  value: 15,
+                  message: "Password can be upto 15 character long",
+                },
               })}
             />
 
@@ -153,7 +156,7 @@ function Details() {
               })}
             />
 
-            <Button type="submit" text="Register" className="w-full" />
+            <Button type="submit" text="Register" className="w-full mt-7 " />
           </form>
         </div>
       </div>

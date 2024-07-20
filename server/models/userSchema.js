@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt")
+const crypto= require("crypto");
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  name: { type: String },
+  name: { type: String , required : true  },
   role: {
     type: String,
     required: true,
@@ -14,6 +15,8 @@ const userSchema = new Schema({
   searchingCity : {type : String , required : true } ,
   age: { type: Number },
   gender: { type: String },
+  number : {type : String } ,
+  profilePicture : {type: String} , 
   preferences: {
     gender: { type: String },
     ageRange: {
@@ -30,6 +33,8 @@ const userSchema = new Schema({
     sporty: { type: Boolean, default: false },
   },
   properties: [{ type: Schema.Types.ObjectId, ref: "Property" }],
+  passwordResetToken: String,
+  passwordResetExpires: Date,
   createdAt: { type: Date, default: Date.now },
 });
 
@@ -41,6 +46,14 @@ userSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
+
+
+userSchema.methods.createPasswordResetToken = function () {
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000; // Token valid for 10 minutes
+  return resetToken;
+};
 
 module.exports = mongoose.model('User', userSchema);
 
