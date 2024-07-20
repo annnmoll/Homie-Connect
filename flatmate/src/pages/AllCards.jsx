@@ -14,6 +14,7 @@ import { cities } from "../utils/cities";
 import Select from "react-select";
 import NoResults from "../lotties/No-Result.json";
 import Lottie from "react-lottie";
+import { setListingInfo } from "../redux/slices/listings";
 
 const lottie1 = {
   loop: true,
@@ -33,7 +34,7 @@ function AllCards() {
 
   const [selectedCity, setSelectedCity] = useState(null);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     dispatch(getListingsByLocation(location));
   }, [location, dispatch]);
@@ -151,6 +152,7 @@ function AllCards() {
             <div
               className=" shadow-md cursor-pointer w-full grid grid-cols-[40%_60%] lg:grid-cols-[30%_70%] min-width-[800px] gap-2  border-2 rounded-lg overflow-hidden hover:scale-105 transition-all duration-200"
               key={i}
+              onClick={()=> { dispatch(setListingInfo(item));  navigate("/listing-info")}}
             >
               <section className="bg-black  ">
                 <img

@@ -6,7 +6,6 @@ import OTP from "./pages/OTP";
 import Details from "./pages/Details";
 import Preferences from "./pages/Preferences";
 import NotFound from "./pages/NotFound";
-import { useSelector } from "react-redux";
 import OpenRoute from "./components/core/auth/OpenRoute";
 import Listing from "./pages/Listing";
 import PrivateRoute from "./components/core/auth/PrivateRoute";
@@ -17,9 +16,10 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import AllCards from "./pages/AllCards";
 import MyProfile from "./pages/MyProfile";
+import ListingInfo from "./pages/ListingInfo";
 
 function App() {
-  const { loading } = useSelector((state) => state.user);
+  
   
   return (
     <div className=" relative overflow-x-hidden">
@@ -29,6 +29,7 @@ function App() {
           <Route element={<HeaderFooterLayout />}>
             <Route path="/" element={<Home />}></Route>
             <Route path="/all/listing/:location" element={<PrivateRoute><AllCards /></PrivateRoute>}></Route>
+            <Route path="/listing-info" element={<PrivateRoute><ListingInfo /></PrivateRoute>}></Route>
             <Route path="/my-profile" element={<PrivateRoute><MyProfile /></PrivateRoute>}></Route>
 
 
@@ -114,9 +115,7 @@ function App() {
         {/* <Footer /> */}
       </Router>
 
-      {loading && <div className="absolute w-[60%] h-[50%]  z-[99]">
-        Loading...
-      </div>}
+      
     </div>
   );
 }
