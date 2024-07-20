@@ -1,5 +1,5 @@
-// const BASE_URL = "http://localhost:4000"
-const BASE_URL = "https://homie-connect.vercel.app"
+const BASE_URL = "http://localhost:4000"
+// const BASE_URL = "https://homie-connect.vercel.app"
 
 export const apis = {
     SIGNUP : BASE_URL + `/register`,
@@ -9,6 +9,7 @@ export const apis = {
     REGISTER_USER: BASE_URL+ '/createuser' ,
     FORGOT_PASSWORD : BASE_URL + '/forgot' ,
     RESET_PASSWORD : BASE_URL + '/reset' , 
+
     CREATE_LISTING : BASE_URL + `/api/listing/create` ,
     GET_LISTING_BY_LOCATION : BASE_URL + `/api/listing/listings/location`
 }

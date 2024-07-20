@@ -7,18 +7,29 @@ import { setListings } from "../../redux/slices/listings"
 
 
 const {CREATE_LISTING, GET_LISTING_BY_LOCATION} = apis
-
-export function createListing(data , token) {
+ 
+export function createListing(formObj, token, navigate) {
     return async (dispatch) => {
         dispatch(setLoading(true));
         try {
-               console.log(CREATE_LISTING) ; 
-            
-
-        } catch (error) {
-            console.log("Logout error", error.message);
-            toast.error("Failed to logout");
-        }
+            const response = await axios.post(
+              CREATE_LISTING,
+              formObj,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+      
+            if (response.data.success) {
+              toast.success(response.data.message);
+              navigate("/");
+            }
+          } catch (error) {
+            toast.error(error.response.data.message);
+            console.log(error)
+          }
         dispatch(setLoading(false));
     };
 }

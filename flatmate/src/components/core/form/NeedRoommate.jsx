@@ -14,15 +14,14 @@ import WashingMachine from "../../../assets/machine.jpg";
 import AirCondition from "../../../assets/ac.jpg";
 import Cook from "../../../assets/cook.png";
 import Parking from "../../../assets/parking.png";
-import axios from "axios";
 import Select from "react-select"
 import { cities } from "../../../utils/cities";
-import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { createListing } from "../../../services/operations/listings";
 
 const lookingForOptions = ["Male", "Female", "Any"];
 const occupancyOptions = ["Single", "Shared", "Any"];
-const pgOptions = ["Yes", "No"];
+// const pgOptions = ["Yes", "No"];
 
 
 const highlights = [
@@ -61,7 +60,7 @@ function NeedRoommate() {
   const [selectedCity, setSelectedCity] = useState(null);
   // const [pg, setPg] = useState("Yes");
   const navigate = useNavigate();
-
+const dispatch = useDispatch() ; 
 
   const submitHandler = async(data) => {
    
@@ -74,29 +73,13 @@ function NeedRoommate() {
       // isInterestedInPg : pg === "Yes" ? true : false   ,
       ...data
    }
-   console.log(selectedCity)
-    console.log(formObj)
-      try{
-        // console.log(formObj)
-    const response = await axios.post("http://localhost:4000/api/listing/create" , formObj , { headers : {
-      "Authorization" : `Bearer ${token}`
-          
-
-      
-    }}  )
-
-    if(response.data.success){
-      toast.success(response.data.message) ;
-      navigate("/")
-    }
-}catch(error){
-   toast.error(error.response.data.message)
-   console.log(error)
+  
+     dispatch(createListing(formObj , token , navigate));
 }
     
 
 
-  };
+
 
   return (
     <div className="w-full min-h-screen bg-gray-700 py-12 px-4">

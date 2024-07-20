@@ -8,9 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select"
-import axios from "axios";
-import { toast } from "react-toastify";
 import { cities } from "../../../utils/cities";
+import { createListing } from "../../../services/operations/listings";
 
 const lookingForOptions = ["Male", "Female", "Any"];
 const occupancyOptions = ["Single", "Shared", "Any"];
@@ -56,25 +55,8 @@ function NeedRoom() {
 
     formObj.roomDetails =  {isInterestedInPg: pg === "Yes" ? true : false , ...formObj.roomDetails}
     // console.log(formObj)
-    try {
-      const response = await axios.post(
-        "http://localhost:4000/api/listing/create",
-        formObj,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.data.success) {
-        toast.success(response.data.message);
-        navigate("/");
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-      console.log(error)
-    }
+    dispatch(createListing(formObj , token , navigate))
+    
   };
   return (
     <div className="w-full min-h-screen bg-gray-700 py-12 px-4">
