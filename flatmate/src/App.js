@@ -28,7 +28,7 @@ function App() {
         <Routes>
           <Route element={<HeaderFooterLayout />}>
             <Route path="/" element={<Home />}></Route>
-            <Route path="/all/listing/:location" element={<PrivateRoute><AllCards /></PrivateRoute>}></Route>
+            <Route path="/all/listing/:location" element={<AllCards />}></Route>
             <Route path="/listing-info" element={<PrivateRoute><ListingInfo /></PrivateRoute>}></Route>
             <Route path="/my-profile" element={<PrivateRoute><MyProfile /></PrivateRoute>}></Route>
 

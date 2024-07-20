@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setDetails } from "../redux/slices/authSlice";
 import { toast } from "react-toastify";
+import Password from "../components/common/Password";
 
 const options = [
   { value: "delhi", label: "Delhi" },
@@ -130,7 +131,7 @@ function Details() {
             />
 
             {/* <Input type="file" label="Add a profile picture" className="mb-5" /> */}
-            <Input
+            <Password
               label="Password"
               errors={errors?.password}
               placeHolder="********"
@@ -147,7 +148,7 @@ function Details() {
               })}
             />
 
-            <Input
+            <Password
               label="Confirm Password"
               errors={errors?.confirmPassword}
               placeHolder="********"

@@ -20,7 +20,7 @@ function ListingInfo() {
     } , [listingInfo]) 
   return (
     <div className='w-screen h-full py-10  '>
-        <div className='w-full h-full max-w-[1200px] mx-auto  px-10 py-10 rounded-xl grid md:grid-cols-[30%_70%] gap-5 gap-y-10 '>
+        <div className='w-full h-full max-w-[1200px] mx-auto px-4  md:px-10 py-10 rounded-xl grid md:grid-cols-[30%_70%] gap-5 gap-y-10 '>
 
             <div className=' h-fit border-2 flex flex-col gap-2  items-center justify-center shadow-xl rounded-xl p-10 w-fit  mx-auto '>
                 <img src={listingInfo?.user?.profilePicture} className='w-[250px] h-[250px] object-cover rounded-lg' />

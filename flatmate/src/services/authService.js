@@ -104,7 +104,9 @@ export function login(email, password, navigate,) {
                 // document.cookie = `token=${response.data.token}; expires=${expire};`;
                 localStorage.setItem("user", JSON.stringify(response.data.user));
                 localStorage.setItem("token", response.data.token);
+                
                 navigate("/");
+                
               }
         } catch (error) {
             console.log("Logout error", error.message);

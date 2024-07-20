@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { login } from "../services/authService";
+import Password from "../components/common/Password";
 
 const defaultOptions = {
   loop: true,
@@ -47,7 +48,7 @@ function Login() {
             className="mt-4"
             {...register("email", { required: "Email is required" })}
           />
-          <Input
+          <Password
             placeholder="********"
             className=""
             errors={errors?.password}
