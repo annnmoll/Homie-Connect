@@ -220,38 +220,45 @@ exports.loginUser = async (req, res) => {
   
     res.status(200).json({ success: true ,  message: 'Password has been reset successfully.' });
   };
+
   exports.updateProfile = async (req, res) => {
-    const { name, number, gender} = req.body;
-    // console.log(req.files)
-    
-    
+    const { name, number, gender } = req.body;
+  
     try {
+      // Handle profile picture upload if present
       const response = req.files?.profilePicture?.tempFilePath
-    ? await uploadImage(req.files.profilePicture.tempFilePath, "Flatmate")
-    : { secure_url: "" };
+        ? await uploadImage(req.files.profilePicture.tempFilePath, "Flatmate")
+        : { secure_url: "" };
+  
+      // Update the user document
+      const updateData = { name, number, gender };
+      if (response.secure_url) {
+        updateData.profilePicture = response.secure_url;
+      }
+  
       const user = await User.findOneAndUpdate(
         { _id: req.user.userId },
-        { name, number, gender, profilePicture : response.secure_url  },
+        updateData,
         { new: true, runValidators: true } // options to return the updated document and run schema validators
       );
   
       if (!user) {
         return res.status(404).json({
           success: false,
-          message: "User not found"
+          message: "User not found",
         });
       }
   
       res.status(200).json({
         success: true,
         message: "Profile updated successfully",
-        user
+        user,
       });
     } catch (error) {
-      console.error(error);
+      console.error('Error updating profile:', error);
       res.status(500).json({
         success: false,
-        message: 'There was an error updating the profile'
+        message: 'There was an error updating the profile',
       });
     }
-  }; 
+  };
