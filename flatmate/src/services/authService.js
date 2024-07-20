@@ -5,7 +5,7 @@ import {toast} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import { setEmail, setPreferences } from "../redux/slices/authSlice";
     
-const {SIGNUP, LOGIN, VALIDATE_OTP , UPDATE_PROFILE , FORGOT_PASSWORD , RESET_PASSWORD} = apis
+const {REGISTER_USER , SIGNUP, LOGIN, VALIDATE_OTP , UPDATE_PROFILE , FORGOT_PASSWORD , RESET_PASSWORD} = apis
 
 export function sendotp(email, navigate,) {
     return async (dispatch) => {
@@ -62,7 +62,7 @@ export function registerUser(details, data, email, navigate) {
         try {
             dispatch(setPreferences(data)) ; 
             const {password , gender , name , role , city , age  } = details
-        const response = await axios.post("http://localhost:4000/createuser" , {
+        const response = await axios.post(REGISTER_USER , {
           email , password  , name , role , age , gender , preferences : data , city 
         })
 
