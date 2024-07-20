@@ -80,7 +80,7 @@ function Home() {
         <div className='flex flex-col gap-4 h-full px-5     '>
             <h1 className='text-3xl font-[650] leading[70px] mb-5  '>Getting Rental Agreement <br />made easy, quick and <br /> affordable</h1>
             <span className='font-[200] mb-5 '>Lowest Price Guaranteed!!Create your rental<br />agreement online in minutes</span>
-            <Button text={`Create Now `} className="!w-fit max-md:mx-auto"  ></Button>
+            {/* <Button text={`Create Now `} className="!w-fit max-md:mx-auto"  ></Button> */}
         </div>
         <div className='h-full'>
         <Lottie 
@@ -97,7 +97,7 @@ function Home() {
       <div className='flex flex-col gap-4 h-full px-5     '>
             <h1 className='text-3xl font-[650] leading[70px] mb-5  '>Connect with us from<br />anywhere </h1>
             <span className='font-[200] mb-5 '>Access our website on laptop  or <br /> your  mobile  phone</span>
-            <Button text={`Create Now `} className="!w-fit max-md:mx-auto"  ></Button>
+            {/* <Button text={`Create Now `} className="!w-fit max-md:mx-auto"  ></Button> */}
         </div>
         <div className='h-full px-5'>
         <Lottie 
