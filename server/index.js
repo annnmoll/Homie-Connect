@@ -14,7 +14,7 @@ app.use(express.json()) ;
 app.use(cors({
     origin : ["https://homie-connect.vercel.app/"],
     credentials : true 
-}));
+})); 
 app.use(fileUpload({
     useTempFiles : true,
     tempFileDir : '/tmp/'
@@ -26,6 +26,6 @@ app.use("/api/listing" , listingRoutes)
 app.listen(PORT , ()=>{ console.log(`Server started at PORT = ${PORT}`)})
 app.get("/" , (req,res)=>{ res.json("Backend is working fine")})
 dbConnect() ;
-cloudinaryConnect() ; 
+cloudinaryConnect() ;  
 
 
