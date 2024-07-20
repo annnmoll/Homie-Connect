@@ -21,7 +21,7 @@ app.use( userRoutes) ;
 app.use("/api/listing" , listingRoutes) 
 
 app.listen(PORT , ()=>{ console.log(`Server started at PORT = ${PORT}`)})
-app.get("/" , (req,res)=>{ res.send("Backend is working fine")})
+app.get("/" , (req,res)=>{ res.json("Backend is working fine")})
 dbConnect() ;
 cloudinaryConnect() ; 
 
