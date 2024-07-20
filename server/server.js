@@ -11,7 +11,10 @@ const fileUpload = require("express-fileupload")
 
 
 app.use(express.json()) ; 
-app.use(cors());
+app.use(cors({
+    origin : ["https://homie-connect.vercel.app/"],
+    credentials : true 
+}));
 app.use(fileUpload({
     useTempFiles : true,
     tempFileDir : '/tmp/'
