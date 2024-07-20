@@ -13,7 +13,7 @@ function ListingInfo() {
     const navigate = useNavigate()
     console.log(listingInfo)
 
-    useEffect(()=>{
+    useEffect(()=>{ 
         if(!listingInfo){
             navigate("/")
         }

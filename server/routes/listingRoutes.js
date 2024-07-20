@@ -10,3 +10,4 @@ router.get('/listings/location/:location', getListingsByLocation);
 module.exports = router ; 
 
 
+  
