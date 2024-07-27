@@ -71,6 +71,7 @@ function Home() {
         height={ "auto"  }
         
         style={{objectFit : "contain",  maxWidth: "500px" }}
+        // style = "object-fit:contain , max-width:500px"
       />
       </section>
 

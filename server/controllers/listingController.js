@@ -14,7 +14,7 @@ exports.createListing = async (req, res) => {
     return res.status(400).json({ success : false , message : "All fields must be filled" ,  error: 'All required fields must be filled.' });
   }
 
-  if(roommateDetails && req.files['images[]'].length > 0){
+  if(roommateDetails && req.files &&  req.files['images[]'].length > 0){
     for(let i=0 ; req.files['images[]'].length ; i++){
 
       const tempPath = req.files['images[]'][i]?.tempFilePath  

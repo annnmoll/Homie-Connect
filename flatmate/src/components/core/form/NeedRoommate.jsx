@@ -129,7 +129,7 @@ function NeedRoommate() {
               labelClassName="mb-1"
               label="Approx Rent"
               icon={<MdCurrencyRupee className="icon text-gray-500" />}
-              placeHolder="5000"
+              placeholder="5000"
               {...register("price", {
                 required: "Location is required",
                 pattern: {

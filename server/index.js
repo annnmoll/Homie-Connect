@@ -16,7 +16,7 @@ app.use(fileUpload({
     tempFileDir : '/tmp/'
 }));
 app.use(express.urlencoded({ extended: true }));
-app.use(cors()); 
+app.use(cors({origin : "*"})); 
 app.use( userRoutes) ;
 app.use("/api/listing" , listingRoutes) 
 
