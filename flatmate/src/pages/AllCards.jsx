@@ -205,8 +205,8 @@ function AllCards() {
           </div> */}
               </section>
               <section className="col-span-2 flex  justify-end pb-4  px-4 ">
-               {item.user._id !== user._id && <MdOutlineMessage className="text-2xl  text-gray-400" onClick={e => {  }} />}
-                {item.user._id === user._id && <MdDelete className="text-2xl text-red-500"  onClick={(e)=> {e.stopPropagation(); dispatch(deleteListing(item._id, token))}}/>  }
+               {item.user._id !== user?._id && <MdOutlineMessage className="text-2xl  text-gray-400" onClick={e => {  }} />}
+                {item.user._id === user?._id && <MdDelete className="text-2xl text-red-500"  onClick={(e)=> {e.stopPropagation(); dispatch(deleteListing(item._id, token))}}/>  }
               </section>
             </div>
           ))}
