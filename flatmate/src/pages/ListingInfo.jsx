@@ -19,10 +19,10 @@ function ListingInfo() {
         }
     } , [listingInfo]) 
   return (
-    <div className='w-screen h-full py-10  '>
-        <div className='w-full h-full max-w-[1200px] mx-auto px-4  md:px-10 py-10 rounded-xl grid md:grid-cols-[30%_70%] gap-5 gap-y-10 '>
+    <div className='w-screen h-full py-10 px-5  '>
+        <div className='w-full h-full max-w-[1200px]  mx-auto justify-center  py-10 rounded-xl grid lg:grid-cols-[28%_68%] gap-3   gap-y-10 '>
 
-            <div className=' h-fit border-2 flex flex-col gap-2  items-center justify-center shadow-xl rounded-xl p-10 w-fit  mx-auto '>
+            <div className=' h-fit border-2 flex flex-col gap-2  items-center justify-center  shadow-xl rounded-xl p-10 w-full  mx-auto '>
                 <img src={listingInfo?.user?.profilePicture} className='w-[250px] h-[250px] object-cover rounded-lg' />
                 <p className='text-2xl font-[600] text-gray-600'>{listingInfo?.user?.name}</p>
                 <div className=' w-full   grid grid-cols-2  gap-x-5 mt-5 '>
@@ -35,7 +35,7 @@ function ListingInfo() {
 
             </div>
 
-            <div className=' flex flex-col gap-2  shadow-xl border-2 rounded-xl p-10 ' >
+            <div className=' flex flex-col gap-2    shadow-xl border-2 rounded-xl p-5 lg:p-10 ' >
                 
                 {/* Location */}
                 <div className='text-left border-b-2 pb-5  px-5 '>

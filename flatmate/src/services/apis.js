@@ -11,5 +11,6 @@ export const apis = {
     RESET_PASSWORD : BASE_URL + '/reset' , 
 
     CREATE_LISTING : BASE_URL + `/api/listing/create` ,
-    GET_LISTING_BY_LOCATION : BASE_URL + `/api/listing/listings/location`
+    GET_LISTING_BY_LOCATION : BASE_URL + `/api/listing/listings` ,
+    DELETE_LISTING : BASE_URL +  `/api/listing/listing`
 }

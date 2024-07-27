@@ -10,8 +10,8 @@ const app = express()
 const fileUpload = require("express-fileupload")
 
 
-app.use(express.json()) ; 
 app.use(cors()); 
+app.use(express.json()) ; 
 app.use(fileUpload({
     useTempFiles : true,
     tempFileDir : '/tmp/'

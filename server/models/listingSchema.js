@@ -24,7 +24,8 @@ const roommateSchema = new mongoose.Schema({
     ac : {type :Boolean , required : true } , 
     cook : {type :Boolean , required : true }  , 
     parking : {type :Boolean , required : true } 
-   }
+   } , 
+   images: [ {type:String }]
     // Add other roommate-specific fields here
   });
   

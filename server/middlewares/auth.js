@@ -8,7 +8,7 @@ const isAuthenticated = (req, res, next) => {
 
   // If no token is found, return an error
   if (!token) {
-    return res.status(401).json({ success : falase  ,  message: 'Access denied. No token provided.' });
+    return res.status(401).json({ success : false  ,  message: 'Access denied. No token provided.' });
   }
 
   try {

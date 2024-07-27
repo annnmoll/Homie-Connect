@@ -3,7 +3,7 @@ import Input from "../components/common/Input";
 import ToggleTab from "../components/common/ToggleTab";
 import Avatar from "../assets/avatar.png";
 import Button from "../components/common/Button";
-import { MdLogout } from "react-icons/md";
+import { MdArrowBack, MdArrowLeft, MdBackspace, MdKeyboardArrowLeft, MdLogout } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken, setUser } from "../redux/slices/userSlice";
 import { toast } from "react-toastify";
@@ -23,18 +23,20 @@ function MyProfile() {
   const { errors } = formState;
 
   useEffect(() => {
-    setValue("name", user.name);
-    setValue("email", user.email);
-    setValue("number", user?.number);
+
+    if(user){
+    setValue("name", user?.name);
+    setValue("email", user?.email);
+    setValue("number", user?.number);}
   }, [user]);
   const logoutHandler = async () => {
-   
+    if(window.confirm("Are you sure you want to logout")){
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     dispatch(setToken(null));
     dispatch(setUser(null));
     toast.success("Logged Out");
-    navigate("/");
+    navigate("/");}
   };
 
   const submitHandler = (data) => {
@@ -49,11 +51,11 @@ function MyProfile() {
   };
 
   return (
-    <div className="w-full h-full py-10 pb-16 px-5 ">
+    <div className="w-full h-full py-10 pb-16 px-3 lg:px-5 ">
       <div className="max-w-[1000px] mx-auto mt-5 py-8 p-5 md:p-10 rounded-2xl shadow-2xl border-2 ">
-        <h2 className="text-3xl  border-b-2 pb-8 pl-3 text-gray-600 text-md font-[600]">
-          Your Profile
-        </h2>
+        <h2 className="text-3xl flex gap-2 items-center  border-b-2 pb-8 pl-3 text-gray-600 text-md font-[600]">
+          <MdArrowBack className="mt-1 cursor-pointer" onClick={()=>navigate(-1)} /> Your Profile 
+        </h2>  
 
         <form
           className="py-10 pb-16 flex flex-col gap-5 border-b-2 "

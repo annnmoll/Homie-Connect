@@ -56,7 +56,7 @@ function Home() {
         <Select
               isSearchable={true}
               defaultValue={selectedCity}
-              onChange={(e)=>{ setSelectedCity(e); navigate(`/all/listing/${e.value}`)}}
+              onChange={(e)=>{ setSelectedCity(e); navigate(`/all/listing/?location=${e.value}`)}}
               options={cities}
               placeholder="Select City"
               className="mb-2 w-full max-w-lg  "

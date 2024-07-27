@@ -1,18 +1,20 @@
 import React from "react";
 import Logo from "../components/common/Logo";
-import { MdKeyboardArrowRight } from "react-icons/md";
+import { MdClose, MdKeyboardArrowRight, MdOutlineClose } from "react-icons/md";
+import { IoMdCloseCircle } from "react-icons/io";
 import House from "../assets/realistic-house.png"
-import Friends from "../assets/freinds.png"
+import Friends from "../assets/freinds.png" 
 import { useNavigate } from "react-router-dom";
 
 function Listing() {
     const navigate = useNavigate()
-  return <div className="w-full min-h-screen py-10">
+  return <div className="w-full min-h-screen py-10 relative ">
     <div className="w-full flex flex-col gap-y-14 items-center ">
         <Logo />
-        <div className="text-center  flex flex-col gap-y-4">
+        <div className="text-center  flex flex-col gap-y-4 relative">
             <h1 className="text-3xl font-[500] ">Post your Requirement</h1>
             <div className="text-sm text-gray-500">Find your perfect roommate or room effortlessly. Just post your  requirement and let the match begin</div>
+            <IoMdCloseCircle className="text-2xl absolute right-2 -top-9 cursor-pointer " onClick={()=>navigate(-1)}/> 
         </div>
  
         {/* Cards */}

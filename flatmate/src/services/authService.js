@@ -170,6 +170,8 @@ export function forgotPassword(data  , navigate){
      console.log(error);
      toast.error(error.response.data.message);
    }
+   dispatch(setLoading(false));
+
 }
 }
 
@@ -198,6 +200,8 @@ export function resetPassword(data  , token ,  navigate){
      console.log(error);
      toast.error(error.response.data.message);
    }
+   dispatch(setLoading(false));
+
 }
 }
 
