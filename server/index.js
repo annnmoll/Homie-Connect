@@ -10,13 +10,13 @@ const app = express()
 const fileUpload = require("express-fileupload")
 
 
-app.use(cors()); 
 app.use(express.json()) ; 
 app.use(fileUpload({
     useTempFiles : true,
     tempFileDir : '/tmp/'
 }));
 app.use(express.urlencoded({ extended: true }));
+app.use(cors()); 
 app.use( userRoutes) ;
 app.use("/api/listing" , listingRoutes) 
 
