@@ -17,22 +17,58 @@ import ResetPassword from "./pages/ResetPassword";
 import AllCards from "./pages/AllCards";
 import MyProfile from "./pages/MyProfile";
 import ListingInfo from "./pages/ListingInfo";
-
+import HeaderLayout from "./components/core/layout/HeaderLayout";
+import Chats from "./pages/Chats";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setSocket } from "./redux/slices/authSlice";
+import { io } from "socket.io-client";
+import { BASE_URL } from "./services/apis";
 function App() {
-  
-  
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const socket = io(BASE_URL);
+    dispatch(setSocket(socket));
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
   return (
-    <div className=" relative overflow-x-hidden">
+    <div className="w-screen h-screen  !m-0 !p-0  overflow-x-auto">
       <Router>
         {/* <Header /> */}
         <Routes>
           <Route element={<HeaderFooterLayout />}>
             <Route path="/" element={<Home />}></Route>
             <Route path="/all/listing" element={<AllCards />}></Route>
-            <Route path="/listing-info" element={<PrivateRoute><ListingInfo /></PrivateRoute>}></Route>
-            <Route path="/my-profile" element={<PrivateRoute><MyProfile /></PrivateRoute>}></Route>
-
-
+            <Route
+              path="/listing-info"
+              element={
+                <PrivateRoute>
+                  <ListingInfo />
+                </PrivateRoute>
+              }
+            ></Route>
+            <Route
+              path="/my-profile"
+              element={
+                <PrivateRoute>
+                  <MyProfile />
+                </PrivateRoute>
+              }
+            ></Route>
+          </Route>
+          <Route element={<HeaderLayout />}>
+            <Route
+              path="/all/chats"
+              element={
+                <PrivateRoute>
+                  <Chats />
+                </PrivateRoute>
+              }
+            ></Route>
           </Route>
           <Route
             path="/preferences"
@@ -77,7 +113,7 @@ function App() {
               </OpenRoute>
             }
           ></Route>
-           <Route
+          <Route
             path="/forgotpassword"
             element={
               <OpenRoute>
@@ -93,7 +129,7 @@ function App() {
               </OpenRoute>
             }
           ></Route>
-          
+
           <Route
             path="/login"
             element={
@@ -114,8 +150,6 @@ function App() {
         </Routes>
         {/* <Footer /> */}
       </Router>
-
-      
     </div>
   );
 }

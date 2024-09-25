@@ -6,8 +6,6 @@ const { uploadImage } = require('../utils/imageUploader');
 exports.createListing = async (req, res) => {
   const { type, title, description, location, isInterestedInPg ,  price, lookingFor, occupancy, roommateDetails, roomDetails } = req.body;
   
-  console.log(req.body, "body")
-  console.log(req.files,"diles" )
   
 // Validate the required fields
   if (!type || !title || !description || !location || !price || !lookingFor || !occupancy) {

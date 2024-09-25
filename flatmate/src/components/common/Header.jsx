@@ -11,21 +11,22 @@ function Header() {
   const { user } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch() ;
+  const dispatch = useDispatch();
 
   const logoutHandler = async () => {
-    if(window.confirm("Are you sure you want to logout ? "))
-    {localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    dispatch(setToken(null));
-    dispatch(setUser(null));
-    toast.success("Logged Out");
-    navigate("/");}
+    if (window.confirm("Are you sure you want to logout ? ")) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      dispatch(setToken(null));
+      dispatch(setUser(null));
+      toast.success("Logged Out");
+      navigate("/");
+    }
   };
   // onClick={()=> navigate("/my-profile")}
 
   return (
-    <header className="w-full h-[70px] bg-[var(--footer-bg)] flex items-center text-sm sticky top-0">
+    <header className="w-full h-[70px] bg-[var(--footer-bg)] flex items-center text-sm ">
       <div className=" w-full max-w-[1400px] px-5 md:px-10 flex items-center justify-between  mx-auto ">
         <div onClick={() => navigate("/")} className="cursor-pointer">
           <Logo />
@@ -40,25 +41,39 @@ function Header() {
             <div className="w-full h-full cursor-pointer mr-4 ">
               <div className="group relative cursor-pointer ">
                 <div className="flex items-center justify-between ">
-                 <img src={user?.profilePicture || Avatar} alt="" className="w-[50px] h-[50px] rounded-xl" />
+                  <img
+                    src={user?.profilePicture || Avatar}
+                    alt=""
+                    className="w-[50px] h-[50px] rounded-xl"
+                  />
                 </div>
 
                 <div className="invisible text-md absolute top-[50px] -left-[50px] -right-[20px] z-[99] px-4 flex  flex-col bg-gray-200 rounded-lg py-1  text-gray-800 shadow-xl group-hover:visible">
-                  <NavLink to="/my-profile" className="  my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-black md:mx-2">
+                  <NavLink
+                    to="/my-profile"
+                    className="  my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-black md:mx-2"
+                  >
                     My Profile
                   </NavLink>
-                  <NavLink to="/listing" className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-black md:mx-2">
+                  <NavLink
+                    to="/listing"
+                    className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-black md:mx-2"
+                  >
                     Add Listing
                   </NavLink>
 
-                  <NavLink to={`/all/listing?id=${user._id}`} className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-black md:mx-2">
+                  <NavLink
+                    to={`/all/listing?id=${user._id}`}
+                    className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-black md:mx-2"
+                  >
                     My Listings
                   </NavLink>
-                  <div onClick={logoutHandler} className="my-2 block border-b border-gray-100 py-1 font-semibold text-red-500 hover:text-red-600 md:mx-2">
+                  <div
+                    onClick={logoutHandler}
+                    className="my-2 block border-b border-gray-100 py-1 font-semibold text-red-500 hover:text-red-600 md:mx-2"
+                  >
                     Logout
                   </div>
-
-                 
                 </div>
               </div>
             </div>
