@@ -35,7 +35,9 @@ function App() {
       dispatch(setSocket(socket));
     }
     return () => {
-      socket.disconnect();
+      if (socket) {
+        socket.disconnect();
+      }
     };
   }, [user]);
 
