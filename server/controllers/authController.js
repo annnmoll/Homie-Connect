@@ -7,6 +7,8 @@ const { uploadImage } = require("../utils/imageUploader");
 
 const { generateOtp } = require("../utils/otpGenerator");
 const { sendEmail } = require("../utils/mailSender");
+const { otpTemplate } = require("../utils/otpTemplate");
+const { forgotPasswordTemplate } = require("../utils/forgotPasswordTemplate");
 
 exports.signup = async (req, res) => {
   try {
@@ -19,13 +21,14 @@ exports.signup = async (req, res) => {
     }
 
     const otp = await generateOtp();
-
+    await Otp.findOneAndDelete({ email });
     const newOtp = await Otp.create({ email, otp });
 
     const options = {
       email: email,
       subject: "OTP for verification",
-      message: `<h1>${newOtp.otp}</h1>`,
+      // message: `<h1>${newOtp.otp}</h1>`,
+      message: otpTemplate(newOtp.otp, email),
     };
     sendEmail(options);
     res.status(200).json({
@@ -177,16 +180,15 @@ exports.forgotPassword = async (req, res) => {
   await user.save({ validateBeforeSave: false });
 
   // Create reset URL
-  const resetURL = `${req.protocol}://${req.get(
-    "host"
-  )}/resetPassword/${resetToken}`;
+  const resetURL = `${req.protocol}://homie-connect-app.vercel.app/resetPassword/${resetToken}`;
 
   // Send email
   try {
     const options = {
       email: email,
       subject: "OTP for verification",
-      message: `<h1>${resetURL}</h1>`,
+      // message: `<h1>${resetURL}</h1>`,
+      message: forgotPasswordTemplate(resetURL, email),
     };
     sendEmail(options);
     res.status(200).json({

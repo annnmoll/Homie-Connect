@@ -20,20 +20,24 @@ import ListingInfo from "./pages/ListingInfo";
 import HeaderLayout from "./components/core/layout/HeaderLayout";
 import Chats from "./pages/Chats";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSocket } from "./redux/slices/authSlice";
 import { io } from "socket.io-client";
 import { BASE_URL } from "./services/apis";
 function App() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    const socket = io(BASE_URL);
-    dispatch(setSocket(socket));
+  const { user } = useSelector((state) => state.user);
 
+  useEffect(() => {
+    let socket;
+    if (user) {
+      socket = io(BASE_URL);
+      dispatch(setSocket(socket));
+    }
     return () => {
       socket.disconnect();
     };
-  }, []);
+  }, [user]);
 
   return (
     <div className="w-screen h-screen  !m-0 !p-0  overflow-x-auto">
