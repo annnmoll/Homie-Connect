@@ -26,11 +26,11 @@ import { io } from "socket.io-client";
 import { BASE_URL } from "./services/apis";
 function App() {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
+  const { token } = useSelector((state) => state.user);
 
   useEffect(() => {
     let socket;
-    if (user) {
+    if (token) {
       socket = io(BASE_URL);
       dispatch(setSocket(socket));
     }
@@ -39,7 +39,7 @@ function App() {
         socket.disconnect();
       }
     };
-  }, [user]);
+  }, [token]);
 
   return (
     <div className="w-screen h-screen  !m-0 !p-0  overflow-x-auto">
