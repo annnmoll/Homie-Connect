@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import io from "socket.io-client";
+import { BASE_URL } from "../../services/apis";
 
-const socket = io("http://localhost:4000"); // Replace with your server URL
+// const socket = io(BASE_URL); // Replace with your server URL
 
 const initialState = {
-  socket: socket,
+  socket: null,
   messages: [],
 };
 
