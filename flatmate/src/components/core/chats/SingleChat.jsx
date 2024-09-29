@@ -12,6 +12,7 @@ import {
   getChatHistory,
   sendMessage,
 } from "../../../services/operations/chats";
+import Loader from "../../common/Loader";
 
 function SingleChat() {
   const [loading, setLoading] = useState(false);
@@ -132,49 +133,60 @@ function SingleChat() {
             }
           })}
         </div>
-
-        {/* ScrollableChat */}
-        <div
-          ref={chatContainerRef}
-          className="flex  h-full flex-col gap-1 px-2 md:px-4 overflow-y-auto pt-2 mt-5 mb-16 pb-5 hide-scrollbar"
-        >
-          {chatHistory?.map((message) => {
-            return (
-              <div
-                key={message._id}
-                className={`flex flex-col w-full overflow-
+        {loading ? (
+          <>
+            <Loader />
+          </>
+        ) : (
+          <>
+            {" "}
+            <div
+              ref={chatContainerRef}
+              className="flex  h-full flex-col gap-1 px-2 md:px-4 overflow-y-auto pt-2 mt-5 mb-16 pb-5 hide-scrollbar"
+            >
+              {chatHistory?.map((message) => {
+                return (
+                  <div
+                    key={message._id}
+                    className={`flex flex-col w-full overflow-
                   ${
                     message.sender !== user._id
                       ? `self-start bg-gray-200`
                       : "self-end bg-green-300"
                   } px-2 md:px-5 py-2 rounded-md max-md:max-w-[250px] max-w-[70%] md:min-w-[40%] `}
-              >
-                <p className="message w-fit max-w-full text-ellipsis overflow-auto ">
-                  {message.content}
-                </p>
-                <p
-                  className={`${
-                    message.sender !== user._id ? `self-start` : " self-end"
-                  } text-xs mt-1  text-gray-500 w-fit `}
-                >
-                  {new Date(message?.timestamp).toLocaleString()}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-
-        <form
-          onSubmit={handleSubmit(sendMessageHandler)}
-          className="w-full flex gap-2 px-2 pr-4 justify-between  absolute bottom-0 pt-2"
-        >
-          <Input
-            placeholder="Type a message"
-            className="!m-0"
-            {...register("content", { required: true })}
-          />
-          <Button className="h-fit  mt-1" type="submit" text="Send"></Button>
-        </form>
+                  >
+                    <p className="message w-fit max-w-full text-ellipsis overflow-auto ">
+                      {message.content}
+                    </p>
+                    <p
+                      className={`${
+                        message.sender !== user._id ? `self-start` : " self-end"
+                      } text-xs mt-1  text-gray-500 w-fit `}
+                    >
+                      {new Date(message?.timestamp).toLocaleString()}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+            <form
+              onSubmit={handleSubmit(sendMessageHandler)}
+              className="w-full flex gap-2 px-2 pr-4 justify-between  absolute bottom-0 pt-2"
+            >
+              <Input
+                placeholder="Type a message"
+                className="!m-0"
+                {...register("content", { required: true })}
+              />
+              <Button
+                className="h-fit  mt-1"
+                type="submit"
+                text="Send"
+              ></Button>
+            </form>
+          </>
+        )}
+        {/* ScrollableChat */}
       </div>
     );
   }
