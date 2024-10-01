@@ -19,20 +19,21 @@ import MyProfile from "./pages/MyProfile";
 import ListingInfo from "./pages/ListingInfo";
 import HeaderLayout from "./components/core/layout/HeaderLayout";
 import Chats from "./pages/Chats";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setSocket } from "./redux/slices/authSlice";
+import { useContext, useEffect } from "react";
 import { io } from "socket.io-client";
 import { BASE_URL } from "./services/apis";
+import SocketContextProvider, { SocketContext } from "./context/socketContext";
+import { useSelector } from "react-redux";
 function App() {
-  const dispatch = useDispatch();
   const { token } = useSelector((state) => state.user);
+  const { setSocket } = useContext(SocketContext);
 
   useEffect(() => {
     let socket;
     if (token) {
       socket = io(BASE_URL);
-      dispatch(setSocket(socket));
+      console.log(socket);
+      setSocket(socket);
     }
     return () => {
       if (socket) {

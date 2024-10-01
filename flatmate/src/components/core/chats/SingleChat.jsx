@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { setChat, setChatHistory } from "../../../redux/slices/chatsSlice";
@@ -13,6 +13,9 @@ import {
   sendMessage,
 } from "../../../services/operations/chats";
 import Loader from "../../common/Loader";
+import SocketContextProvider, {
+  SocketContext,
+} from "../../../context/socketContext";
 
 function SingleChat() {
   const [loading, setLoading] = useState(false);
@@ -22,14 +25,17 @@ function SingleChat() {
   const { user, token } = useSelector((state) => state.user);
   const { register, handleSubmit, reset } = useForm();
   const dispatch = useDispatch();
-  const { socket } = useSelector((state) => state.auth);
+  const { socket } = useContext(SocketContext);
+
   console.log(chatHistory, "chatHistory");
   useEffect(() => {
     if (chat && chat._id) {
       dispatch(getChatHistory(chat._id, token, setLoading));
-      socket.emit("joinRoom", chat._id);
+      if (socket) {
+        socket.emit("joinRoom", chat._id);
+      }
     }
-  }, [chat]);
+  }, [chat, socket]);
 
   useEffect(() => {
     if (chatContainerRef.current) {
