@@ -26,7 +26,7 @@ function Header() {
   // onClick={()=> navigate("/my-profile")}
 
   return (
-    <header className="w-full h-[70px] bg-[var(--footer-bg)] flex items-center text-sm overflow-x-hidden">
+    <header className="w-full h-[70px] bg-[var(--footer-bg)] flex items-center text-sm ">
       <div className=" w-full max-w-[1400px] px-5 md:px-10 flex items-center justify-between  mx-auto ">
         <div onClick={() => navigate("/")} className="cursor-pointer">
           <Logo />
