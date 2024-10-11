@@ -7,7 +7,7 @@ import Button from "../../common/Button";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import Select from "react-select"
+import Select from "react-select";
 import { cities } from "../../../utils/cities";
 import { createListing } from "../../../services/operations/listings";
 
@@ -38,25 +38,27 @@ function NeedRoom() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { register, handleSubmit, formState } = useForm();
-  const { errors } = formState; 
+  const { errors } = formState;
 
   const submitHandler = async (data) => {
     // console.log(selectedCity)
     const formObj = {
       type: "Room",
       title: "Needed Room urgent",
-      location : selectedCity.value , 
+      location: selectedCity.value,
       lookingFor,
       occupancy,
-      
+
       ...data,
     };
-    // console.log(formObj) ; 
+    // console.log(formObj) ;
 
-    formObj.roomDetails =  {isInterestedInPg: pg === "Yes" ? true : false , ...formObj.roomDetails}
+    formObj.roomDetails = {
+      isInterestedInPg: pg === "Yes" ? true : false,
+      ...formObj.roomDetails,
+    };
     // console.log(formObj)
-    dispatch(createListing(formObj , token , navigate))
-    
+    dispatch(createListing(formObj, token, navigate));
   };
   return (
     <div className="w-full min-h-screen bg-gray-700 py-12 px-4">
@@ -74,18 +76,18 @@ function NeedRoom() {
         >
           {/* location and looking for  */}
           <div className="grid lg:grid-cols-2 gap-y-5 gap-x-8">
-          <div><h2 className="font-[500] mb-1 ">
-              Select City
-            </h2>
-          <Select
-              isSearchable={true}
-              defaultValue={selectedCity}
-              onChange={setSelectedCity}
-              options={cities}
-              placeholder="Select City"
-              className="mb-5"
-              //   {...register("city" , {required : "City is required "})}
-            />
+            <div>
+              <h2 className="font-[500] mb-1 ">Select City</h2>
+              <Select
+                isSearchable={true}
+                defaultValue={selectedCity}
+                onChange={setSelectedCity}
+                options={cities}
+                placeholder="Select City"
+                className="mb-5"
+                required
+                //   {...register("city" , {required : "City is required "})}
+              />
             </div>
             <div className="border py-4 px-4  rounded-md relative">
               <span className="mb-1 absolute -top-4 bg-white px-2 font-[600]">

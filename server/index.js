@@ -17,7 +17,7 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "https://homie-connect-app.vercel.app", // Replace with the front-end origin
+    origin: true, // Replace with the front-end origin
     methods: ["GET", "POST"], // Allowed methods
     credentials: true, // If you need to allow credentials (cookies, etc.)
   },

@@ -125,7 +125,8 @@ exports.getChatHistory = async (req, res) => {
     // Find the chat and populate messages and participants
     const chat = await Chat.findById(chatId)
       .populate("messages")
-      .populate("participants", "name email");
+      .populate("participants", "name email")
+      .sort({ lastMessageAt: -1 });
 
     if (!chat) {
       return res.status(404).json({ message: "Chat not found." });

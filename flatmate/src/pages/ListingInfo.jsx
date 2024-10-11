@@ -4,12 +4,14 @@ import Button from "../components/common/Button";
 import { useNavigate } from "react-router-dom";
 import { MdLocationPin } from "react-icons/md";
 import { createChat } from "../services/operations/chats";
+import Carousel from "../components/common/Carousel";
 
 function ListingInfo() {
   const { token } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const { listingInfo } = useSelector((state) => state.listings);
   const { user } = useSelector((state) => state.user);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   const preferences = Object.keys(listingInfo?.user?.preferences).filter(
     (key) => listingInfo?.user?.preferences[key]
   );
@@ -24,8 +26,10 @@ function ListingInfo() {
     Object.keys(listingInfo?.roommateDetails?.amenities).filter(
       (key) => listingInfo?.roommateDetails?.amenities[key]
     );
+
+  const images = listingInfo?.roommateDetails?.images || [];
+
   const navigate = useNavigate();
-  console.log(listingInfo);
 
   useEffect(() => {
     if (!listingInfo) {
@@ -33,7 +37,7 @@ function ListingInfo() {
     }
   }, [listingInfo]);
   return (
-    <div className="w-screen h-full py-10 px-5  ">
+    <div className="w-screen h-full py-10 px-5 overflow-x-hidden  ">
       <div className="w-full h-full max-w-[1200px]  mx-auto justify-center  py-10 rounded-xl grid lg:grid-cols-[28%_68%] gap-3   gap-y-10 ">
         <div className=" h-fit border-2 flex flex-col gap-2  items-center justify-center  shadow-xl rounded-xl p-10 w-full  mx-auto ">
           <img
@@ -117,6 +121,24 @@ function ListingInfo() {
             </div>
           </div>
 
+          {listingInfo?.roommateDetails &&
+            listingInfo?.roommateDetails.images && (
+              <div className="text-left border-b-2 py-5  px-5 ">
+                <h2 className="text-2xl  font-[600]">Images</h2>
+                <div className="flex items-center  mt-5  flex-wrap gap-3  ">
+                  {listingInfo?.roommateDetails?.images.map((image, i) => (
+                    <div
+                      className="rounded-2xl cursor-pointer "
+                      key={i}
+                      onClick={() => setSelectedIndex(i)}
+                    >
+                      <img src={image}></img>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
           {listingInfo?.roommateDetails && (
             <div>
               <div className="text-left border-b-2 py-5  px-5 ">
@@ -155,6 +177,14 @@ function ListingInfo() {
           </div>
         </div>
       </div>
+
+      {selectedIndex > -1 && (
+        <Carousel
+          images={images}
+          selectedImageIndex={selectedIndex}
+          setSelectedImageIndex={setSelectedIndex}
+        />
+      )}
     </div>
   );
 }

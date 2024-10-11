@@ -71,15 +71,16 @@ function NeedRoommate() {
 
   const submitHandler = async (data) => {
     const formObj = {
+      ...data,
       type: "Roommate",
       title: "Needed Room urgent",
       lookingFor,
       location: selectedCity.value,
       occupancy,
+      roommateDetails: JSON.stringify(data.roommateDetails),
       // isInterestedInPg : pg === "Yes" ? true : false   ,
-      ...data,
     };
-      console.log(formObj) ;
+    console.log(formObj);
     dispatch(createListing(formObj, token, navigate));
   };
 
@@ -108,6 +109,7 @@ function NeedRoommate() {
                 options={cities}
                 placeholder="Select City"
                 className="mb-5"
+                required
                 //   {...register("city" , {required : "City is required "})}
               />
             </div>
@@ -131,7 +133,7 @@ function NeedRoommate() {
               icon={<MdCurrencyRupee className="icon text-gray-500" />}
               placeholder="5000"
               {...register("price", {
-                required: "Location is required",
+                required: "Price is required",
                 pattern: {
                   value: /^[0-9]+$/,
                   message: "Only numbers are allowed",
@@ -153,7 +155,7 @@ function NeedRoommate() {
           </div>
 
           {/* {upload 3 photos of your room } */}
-          {/* <Input
+          <Input
             label="Upload 3 photos of your room"
             type="file"
             errors={errors?.images}
@@ -167,7 +169,7 @@ function NeedRoommate() {
             })}
             multiple
             className="h-[100px] flex items-center justify-center border border-dashed !p-4 border-black"
-          /> */}
+          />
 
           {/* highlights for your property */}
           <div className="mb-3">
@@ -220,7 +222,7 @@ function NeedRoommate() {
 
           <TextArea
             label="Description"
-            defaultValue=" I am looking for a room with roommate"
+            defaultValue=" I am looking for a roommate for my room"
             {...register("description", {
               required: "Description is required",
             })}

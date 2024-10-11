@@ -14,12 +14,9 @@ function Home() {
   return (
     <main className="w-full  ">
       {/* SECTION1 */}
-      <section className="w-full px-2  min-h-[80vh] pt-10  flex flex-col gap-5   items-center">
-        <span className="bg-pink-200 rounded-xl px-5 py-[1px] mb-3">
-          Trusted & Loved by million users
-        </span>
+      <section className="w-full px-2  min-h-[80vh] pt-10  flex flex-col gap-4   items-center">
         <div className="text-center ">
-          <h1 className="  text-3xl md:text-5xl font-[600] text-wrap text-center leading-[40px] md:leading-[60px] mb-1 ">
+          <h1 className="  text-3xl md:text-5xl font-[600] text-wrap text-center leading-[40px] md:leading-[60px]  ">
             Find compatible Flatmates
             <br />
             Rooms and PGs

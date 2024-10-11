@@ -13,9 +13,8 @@ import {
   sendMessage,
 } from "../../../services/operations/chats";
 import Loader from "../../common/Loader";
-import SocketContextProvider, {
-  SocketContext,
-} from "../../../context/socketContext";
+import { SocketContext } from "../../../context/socketContext";
+import Avatar from "../../../assets/avatar.png";
 
 function SingleChat() {
   const [loading, setLoading] = useState(false);
@@ -77,10 +76,10 @@ function SingleChat() {
       socket.on("message-received", handleMessageReceived);
 
       // Cleanup listener when component unmounts or socket changes
-      // return () => {
-      //   socket.off("message-received", handleMessageReceived);
-      //   console.log("Cleaned up socket listener");
-      // };
+      return () => {
+        socket.off("message-received", handleMessageReceived);
+        console.log("Cleaned up socket listener");
+      };
     }
   });
 
@@ -129,7 +128,7 @@ function SingleChat() {
                 >
                   <img
                     className="h-[50px] w-[50px] rounded-full object-cover"
-                    src={participant.profilePicture}
+                    src={participant.profilePicture || Avatar}
                   />
                   <div className="flex flex-col gap-2  ml-3   justify-center ">
                     <p className="text-lg font-semibold">{participant.name}</p>

@@ -6,7 +6,7 @@ import CTAButton from "./CTAButton";
 import Avatar from "../../assets/avatar.png";
 import { toast } from "react-toastify";
 import { setToken, setUser } from "../../redux/slices/userSlice";
-
+import Chat from "../../assets/chat (2).png";
 function Header() {
   const { user } = useSelector((state) => state.user);
 
@@ -26,7 +26,7 @@ function Header() {
   // onClick={()=> navigate("/my-profile")}
 
   return (
-    <header className="w-full h-[70px] bg-[var(--footer-bg)] flex items-center text-sm ">
+    <header className="w-full h-[70px] bg-[var(--footer-bg)] flex items-center text-sm overflow-x-hidden">
       <div className=" w-full max-w-[1400px] px-5 md:px-10 flex items-center justify-between  mx-auto ">
         <div onClick={() => navigate("/")} className="cursor-pointer">
           <Logo />
@@ -38,15 +38,20 @@ function Header() {
               to="/listing"
               className="hidden lg:block  items-center justify-center w-fit"
             />
+
+            <img
+              onClick={() => navigate("/all/chats")}
+              className="w-[35px] h-[35px] cursor-pointer"
+              src={Chat}
+            ></img>
+
             <div className="w-full h-full cursor-pointer mr-4 ">
               <div className="group relative cursor-pointer ">
-                <div className="flex items-center justify-between ">
-                  <img
-                    src={user?.profilePicture || Avatar}
-                    alt=""
-                    className="w-[50px] h-[50px] rounded-xl"
-                  />
-                </div>
+                <img
+                  src={user?.profilePicture || Avatar}
+                  alt=""
+                  className="w-[50px] object-center  h-[50px] rounded-xl bg-white object-cover "
+                />
 
                 <div className="invisible text-md absolute top-[50px] -left-[50px] -right-[20px] z-[99] px-4 flex  flex-col bg-gray-200 rounded-lg py-1  text-gray-800 shadow-xl group-hover:visible">
                   <NavLink

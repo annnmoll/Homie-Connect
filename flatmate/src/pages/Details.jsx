@@ -83,7 +83,18 @@ function Details() {
               errors={errors?.name}
               placeHolder="John Doe"
               divClassName="mb-[2px]"
-              {...register("name", { required: "Name is required" })}
+              {...register("name", {
+                required: "Name is required",
+                minLength: {
+                  value: 3,
+                  message: "Name must be at least 3 characters long",
+                },
+                validate: {
+                  trimmed: (value) =>
+                    value.trim().length > 0 ||
+                    "Name cannot be empty or just spaces",
+                },
+              })}
             />
 
             <div className="text-sm mt-5 ml-1 mb-1 font-[600]">
@@ -106,8 +117,26 @@ function Details() {
               placeHolder="18"
               type="number"
               className=""
-              {...register("age", { required: "Age is required" })}
+              {...register("age", {
+                required: "Age is required",
+                min: {
+                  value: 18,
+                  message: "Age must be at least 18",
+                },
+                max: {
+                  value: 100,
+                  message: "Age must be less than or equal to 100",
+                },
+                validate: {
+                  positive: (value) =>
+                    value > 0 || "Age must be a positive number",
+                  validNumber: (value) =>
+                    Number.isInteger(parseFloat(value)) ||
+                    "Age must be a valid number",
+                },
+              })}
             />
+
             <div className="text-sm mt-5 ml-1 mb-1 font-[600]">Your Gender</div>
             <ToggleTab
               tabs={genders}
@@ -136,14 +165,28 @@ function Details() {
               errors={errors?.password}
               placeHolder="********"
               {...register("password", {
-                required: "Password is required is required",
+                required: "Password is required",
                 minLength: {
-                  value: 6,
-                  message: "Password must be at least 8 characters long ",
+                  value: 8,
+                  message: "Password must be at least 8 characters long",
                 },
                 maxLength: {
                   value: 15,
-                  message: "Password can be upto 15 character long",
+                  message: "Password can be up to 15 characters long",
+                },
+                validate: {
+                  hasUpperCase: (value) =>
+                    /[A-Z]/.test(value) ||
+                    "Password must contain at least one uppercase letter",
+                  hasLowerCase: (value) =>
+                    /[a-z]/.test(value) ||
+                    "Password must contain at least one lowercase letter",
+                  hasNumber: (value) =>
+                    /\d/.test(value) ||
+                    "Password must contain at least one number",
+                  hasSpecialChar: (value) =>
+                    /[!@#$%^&*(),.?":{}|<>]/.test(value) ||
+                    "Password must contain at least one special character",
                 },
               })}
             />
