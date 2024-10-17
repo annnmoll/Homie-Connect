@@ -26,7 +26,6 @@ function SingleChat() {
   const dispatch = useDispatch();
   const { socket } = useContext(SocketContext);
 
-  console.log(chatHistory, "chatHistory");
   useEffect(() => {
     if (chat && chat._id) {
       dispatch(getChatHistory(chat._id, token, setLoading));
@@ -46,15 +45,10 @@ function SingleChat() {
   }, [chatHistory]); // Scroll only when chatHistory changes
 
   useEffect(() => {
-    console.log("Component rendered");
-
     // Check if the socket is available
     if (socket) {
-      console.log("Socket available, setting up listener...");
-
       // Listen for incoming messages
       const handleMessageReceived = (messageReceived) => {
-        console.log("Message received:", messageReceived);
         if (messageReceived.senderId == user._id) {
           return;
         }
@@ -62,10 +56,8 @@ function SingleChat() {
         // If no active chat or chat IDs don't match, trigger notifications
         if (!chat || chat._id !== messageReceived.chatId) {
           // Trigger notification logic
-          console.log("Show notification for new message");
         } else {
           // Active chat, update messages
-          console.log("New message for active chat:", messageReceived);
           // Logic to update messages here, e.g. setMessages(prev => [...prev, messageReceived]);
           const newChat = [...chatHistory, messageReceived];
           dispatch(setChatHistory(newChat));
@@ -78,7 +70,6 @@ function SingleChat() {
       // Cleanup listener when component unmounts or socket changes
       return () => {
         socket.off("message-received", handleMessageReceived);
-        console.log("Cleaned up socket listener");
       };
     }
   });
@@ -93,8 +84,6 @@ function SingleChat() {
 
     dispatch(sendMessage(formObj, token, chatHistory));
     socket.emit("sendMessage", formObj);
-
-    // console.log(chatHistory);
 
     reset();
   };

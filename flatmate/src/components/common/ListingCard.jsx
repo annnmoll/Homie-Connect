@@ -8,7 +8,6 @@ import Avatar from "../../assets/avatar.png";
 import { createChat } from "../../services/operations/chats";
 
 function ListingCard({ listing }) {
-  console.log({ listing });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user, token } = useSelector((state) => state.user);

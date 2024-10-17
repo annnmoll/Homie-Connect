@@ -52,7 +52,7 @@ exports.otpTemplate = (OTP, userName) => {
         <div class="container">
             <div class="header">
                 <!-- Replace with the actual logo URL -->
-                <img src="https://your-logo-url.com/logo.png" alt="HomiesConnect Logo">
+                <img src="https://res.cloudinary.com/dul4bpf0s/image/upload/v1729163630/Screenshot_2024-10-17_164106_jvric3.png" alt="HomiesConnect Logo">
             </div>
             <div class="message">
                 <p>Hello <strong>${userName}</strong>,</p>
