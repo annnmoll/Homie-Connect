@@ -22,7 +22,7 @@ import Chats from "./pages/Chats";
 import { useContext, useEffect } from "react";
 import { io } from "socket.io-client";
 import { BASE_URL } from "./services/apis";
-import SocketContextProvider, { SocketContext } from "./context/socketContext";
+import { SocketContext } from "./context/socketContext";
 import { useSelector } from "react-redux";
 function App() {
   const { token } = useSelector((state) => state.user);
