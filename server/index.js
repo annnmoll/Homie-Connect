@@ -14,6 +14,8 @@ const socketIo = require("socket.io");
 const app = express();
 const http = require("http");
 const server = http.createServer(app);
+app.use(cors());
+
 const io = socketIo(server, {
   pingTimeout: 60000,
   cors: {
@@ -21,8 +23,6 @@ const io = socketIo(server, {
     methods: ["GET", "POST"],
   },
 });
-
-app.use(cors({ origin: "*" }));
 
 app.use(express.json());
 app.use(
