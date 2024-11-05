@@ -1,5 +1,7 @@
-// export const BASE_URL = "http://localhost:4000";
-export const BASE_URL = "https://homie-connect.vercel.app";
+export const BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://homie-connect.vercel.app"
+    : "http://localhost:4000";
 
 export const apis = {
   SIGNUP: BASE_URL + `/register`,
