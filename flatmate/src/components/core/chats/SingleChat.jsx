@@ -101,7 +101,7 @@ function SingleChat() {
   }
   if (chat) {
     return (
-      <div className="w-auto h-full flex flex-col border border-gray-200 rounded-lg relative max-sm:-ml-2 ">
+      <div className="w-auto h-[82vh] md:h-full  flex flex-col border border-gray-200 rounded-lg relative max-sm:-ml-2 ">
         {/* Chat Header */}
         <div className="bg-gray-200 rounded-t-lg  flex  items-center pl-2  ">
           <MdKeyboardArrowLeft
