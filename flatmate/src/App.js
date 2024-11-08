@@ -31,7 +31,9 @@ function App() {
   useEffect(() => {
     let socket;
     if (token) {
-      socket = io(BASE_URL);
+      socket = io(BASE_URL, {
+        transports: ["websocket", "polling"],
+      });
       console.log(socket);
       setSocket(socket);
     }

@@ -19,7 +19,7 @@ app.use(cors());
 const io = socketIo(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "*", // Replace with the front-end origin
+    origin: "https://homie-connect-app.vercel.app/", // Replace with the front-end origin
     methods: ["GET", "POST"],
   },
 });
@@ -71,6 +71,9 @@ io.on("connection", (socket) => {
     // io.to(message.chatId).emit("message", message);
   });
 
+  socket.on("connect_error", (err) => {
+    console.error("Connection error:", err.message); // Logs the error message
+  });
   // Handle disconnection
   socket.on("disconnect", () => {
     console.log("Client disconnected");
