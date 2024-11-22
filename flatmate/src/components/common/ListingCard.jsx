@@ -1,11 +1,12 @@
 import React from "react";
-import { MdDelete, MdLocationPin, MdOutlineMessage } from "react-icons/md";
+import { MdDelete, MdLocationPin, MdOutlineMessage, MdWatchLater } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setListingInfo } from "../../redux/slices/listings";
 import { deleteListing } from "../../services/operations/listings";
 import Avatar from "../../assets/avatar.png";
 import { createChat } from "../../services/operations/chats";
+import { formatDate } from "../../utils/formatDate";
 
 function ListingCard({ listing }) {
   const dispatch = useDispatch();
@@ -56,9 +57,13 @@ function ListingCard({ listing }) {
         {/* <div className="col-span-2 flex justify-end p-2 pr-3 pb-0  ">
 <MdMessage className="text-2xl text-gray-400" />
 </div> */}
-        <p className="absolute bottom-4 text-right w-full right-7 text-gray-500 text-sm">
-          <span className="font-bold mr-2">Posted on:</span>
-          {new Date(listing.createdAt).toDateString()}{" "}
+        <p className="absolute bottom-4 text-right w-full right-7 text-gray-500 text-sm ">
+        <div className="flex  justify-end items-center ">
+          <span className="font-bold mr-2">
+            <MdWatchLater />
+          </span>
+          {formatDate(listing.createdAt)}{" "}
+          </div>
         </p>
       </section>
       <section className="col-span-2 flex  justify-end pb-4  px-4 ">

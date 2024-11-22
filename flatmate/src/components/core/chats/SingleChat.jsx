@@ -43,37 +43,37 @@ function SingleChat() {
       });
     }
   }, [chatHistory]); // Scroll only when chatHistory changes
-
   useEffect(() => {
     // Check if the socket is available
-    if (socket) {
-      // Listen for incoming messages
-      const handleMessageReceived = (messageReceived) => {
-        if (messageReceived.senderId == user._id) {
-          return;
-        }
-
-        // If no active chat or chat IDs don't match, trigger notifications
-        if (!chat || chat._id !== messageReceived.chatId) {
-          // Trigger notification logic
-        } else {
-          // Active chat, update messages
-          // Logic to update messages here, e.g. setMessages(prev => [...prev, messageReceived]);
-          const newChat = [...chatHistory, messageReceived];
-          dispatch(setChatHistory(newChat));
-        }
-      };
-
-      // Setting up the listener
-      socket.on("message-received", handleMessageReceived);
-
-      // Cleanup listener when component unmounts or socket changes
-      return () => {
-        socket.off("message-received", handleMessageReceived);
-      };
-    }
-  });
-
+    if (!socket) return;
+  
+    // Function to handle incoming messages
+    const handleMessageReceived = (messageReceived) => {
+      // Ignore messages sent by the current user
+      if (messageReceived.senderId === user._id) {
+        return;
+      }
+  
+      // If no active chat or chat IDs don't match, trigger notifications
+      if (!chat || chat._id !== messageReceived.chatId) {
+        // Trigger notification logic here
+        console.log("Notification: New message received!");
+      } else {
+        // Update chat history for the active chat
+        const updatedChatHistory = [...chatHistory, messageReceived];
+        dispatch(setChatHistory(updatedChatHistory));
+      }
+    };
+  
+    // Setting up the Socket.IO listener
+    socket.on("message-received", handleMessageReceived);
+  
+    // Cleanup listener when the component unmounts or socket changes
+    return () => {
+      socket.off("message-received", handleMessageReceived);
+    };
+  }, [socket, user._id, chat, chatHistory, dispatch]);
+  
   const sendMessageHandler = async (data) => {
     const formObj = {
       chatId: chat._id,

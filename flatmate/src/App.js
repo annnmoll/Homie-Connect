@@ -34,7 +34,6 @@ function App() {
       socket = io(BASE_URL, {
         transports: ["websocket", "polling"],
       });
-      console.log(socket);
       setSocket(socket);
     }
     return () => {

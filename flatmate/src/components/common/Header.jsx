@@ -36,7 +36,7 @@ function Header() {
             <CTAButton
               text="Add Listing"
               to="/listing"
-              className="hidden lg:block  items-center justify-center w-fit"
+              className="hidden lg:block text-nowrap  items-center justify-center w-fit"
             />
 
             <img
