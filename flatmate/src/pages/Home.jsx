@@ -7,13 +7,20 @@ import { cities } from "../utils/cities";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import { lottieOptions } from "../utils/lottieOption";
+import { MdChat } from "react-icons/md";
+import { IoMdChatbubbles } from "react-icons/io";
+
 function Home() {
   const [selectedCity, setSelectedCity] = useState(null);
   const navigate = useNavigate();
 
   return (
-    <main className="w-full  ">
+    <main className="w-full  relative ">
       {/* SECTION1 */}
+      <IoMdChatbubbles
+              onClick={() => navigate("/all/chats")}
+            className=" fixed bottom-10 right-12 rounded-full border border-black bg-[whitesmoke] text-[10px] cursor-pointer  text-[#16A34A] p-4 w-[70px] h-[70px] animate-bounce   "
+            />
       <section className="w-full px-2  min-h-[80vh] pt-10  flex flex-col gap-4   items-center">
         <div className="text-center ">
           <h1 className="  text-3xl md:text-5xl font-[600] text-wrap text-center leading-[40px] md:leading-[60px]  ">

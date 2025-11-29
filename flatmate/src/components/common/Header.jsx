@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import CTAButton from "./CTAButton";
 import Avatar from "../../assets/avatar.png";
+import { MdChat } from "react-icons/md";
 import { toast } from "react-toastify";
 import { setToken, setUser } from "../../redux/slices/userSlice";
-import Chat from "../../assets/chat (2).png";
 function Header() {
   const { user } = useSelector((state) => state.user);
 
@@ -38,12 +38,7 @@ function Header() {
               to="/listing"
               className="hidden lg:block text-nowrap  items-center justify-center w-fit"
             />
-
-            <img
-              onClick={() => navigate("/all/chats")}
-              className="w-[35px] h-[35px] cursor-pointer"
-              src={Chat}
-            ></img>
+          
 
             <div className="w-full h-full cursor-pointer mr-4 ">
               <div className="group relative cursor-pointer ">

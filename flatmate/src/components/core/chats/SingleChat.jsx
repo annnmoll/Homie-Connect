@@ -120,7 +120,7 @@ function SingleChat() {
                     src={participant.profilePicture || Avatar}
                   />
                   <div className="flex flex-col gap-2  ml-3   justify-center ">
-                    <p className="text-lg font-semibold">{participant.name}</p>
+                    <p className="text-lg font-semibold capitalize">{participant.name}</p>
                   </div>
                 </div>
               );

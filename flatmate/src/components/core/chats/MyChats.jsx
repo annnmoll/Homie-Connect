@@ -47,12 +47,12 @@ function MyChats() {
                   className="py-2 px-4 h-[90px] pl-2 w-auto flex gap-3 items-center max-sm:h-[70px]"
                   key={participant._id}
                 >
-                  <img
+                  <img alt =""
                     className="h-[75px] w-[75px] rounded-full object-cover max-sm:w-[50px] max-sm:h-[50px]"
                     src={participant.profilePicture || Avatar}
                   />
                   <div className="flex flex-col gap-1 ml-3 overflow-hidden">
-                    <p className="text-lg font-semibold">{participant.name}</p>
+                    <p className="text-lg font-semibold capitalize">{participant.name}</p>
                     <p className="max-lg:hidden w-auto overflow-hidden text-ellipsis">
                       {participant.email}
                     </p>

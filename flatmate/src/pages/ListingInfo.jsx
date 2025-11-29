@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { MdLocationPin } from "react-icons/md";
 import { createChat } from "../services/operations/chats";
 import Carousel from "../components/common/Carousel";
+import Avatar from '../assets/avatar.png' ;
 
 function ListingInfo() {
   const { token } = useSelector((state) => state.user);
@@ -41,7 +42,7 @@ function ListingInfo() {
       <div className="w-full h-full max-w-[1200px]  mx-auto justify-center  py-10 rounded-xl grid lg:grid-cols-[28%_68%] gap-3   gap-y-10 ">
         <div className=" h-fit border-2 flex flex-col gap-2  items-center justify-center  shadow-xl rounded-xl p-10 w-full  mx-auto ">
           <img
-            src={listingInfo?.user?.profilePicture}
+            src={listingInfo?.user?.profilePicture || Avatar}
             className="w-[250px] h-[250px] object-cover rounded-lg"
           />
           <p className="text-2xl font-[600] text-gray-600">
