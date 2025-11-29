@@ -3,12 +3,12 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      // Background images for different pages
-      backgroundImage: {
-        "login-bg": "url('../src/assets/background.jpg')",
-        // "signup-bg": "url('./assets/signup-bg.jpg')",
-        // "forgot-password-bg": "url('./assets/forgot-password-bg.jpg')",
-      },
+      // // Background images for different pages
+      // backgroundImage: {
+      //   "login-bg": "url('../src/assets/background.jpg')",
+      //   // "signup-bg": "url('./assets/signup-bg.jpg')",
+      //   // "forgot-password-bg": "url('./assets/forgot-password-bg.jpg')",
+      // },
     },
   },
   plugins: [
